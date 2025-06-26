@@ -16,6 +16,25 @@ This plugin's purpose is to automatically copy to your clipboard the next waypoi
 - Open the folder you created and put all the files and folders you extracted inside
 - Restart EDMC
 
+### Wayland Support
+
+If you're using a Wayland desktop environment, you can't use xclip and have to configure the plugin using the `EDMC_SPANSH_ROUTER_XCLIP` environment variable to use Wayland specific `wl-copy` tool before launching EDMC. For example:
+
+```bash
+export EDMC_SPANSH_ROUTER_XCLIP="/usr/bin/wl-copy"
+python EDMarketConnector.py
+```
+
+For Flatpak users, you may need to:
+1. Add permissions when launching EDMC: `--socket=wayland --filesystem=host-os`
+2. Use another path for wl-copy: `export EDMC_SPANSH_ROUTER_XCLIP="/run/host/usr/bin/wl-copy"`
+
+
+This allows the plugin to use `wl-copy` instead of `xclip` for clipboard operations.
+
+
+For more details see [this issue](https://github.com/norohind/EDMC_SpanshRouter/issues/6)
+
 ## How to use
 
 You can either plot your route directly from EDMC by clicking the "Plot Route" button, or you can import a CSV file from [Spansh](https://www.spansh.co.uk/plotter)
