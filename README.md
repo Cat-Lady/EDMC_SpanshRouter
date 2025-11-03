@@ -9,10 +9,11 @@ This plugin's purpose is to automatically copy to your clipboard the next waypoi
 
 ## Install
 
-- If you're on Linux, you'll need to make sure that **xclip** is installed before using the plugin (`sudo apt-get xclip` on Debian based systems).
+- If you're on Linux, you'll need to make sure that **xclip** is installed before using the plugin (`sudo apt-get install xclip` on Debian based systems).
 - Open your EDMC plugins folder - in EDMC settings, select "Plugins" tab, click the "Open" button.
 - Create a folder inside the plugins folder and call it whatever you want, **SpanshRouter** for instance
-- Download the latest release [here](https://github.com/CMDR-Kiel42/EDMC_SpanshRouter/releases/latest) and unzip it.
+- **Download this fork's code** by clicking the green "Code" button above and selecting "Download ZIP", then unzip it.
+  - **Note:** Do not use the old releases from the original repository - they are outdated and incompatible with modern EDMC versions.
 - Open the folder you created and put all the files and folders you extracted inside
 - Restart EDMC
 
@@ -25,9 +26,24 @@ export EDMC_SPANSH_ROUTER_XCLIP="/usr/bin/wl-copy"
 python EDMarketConnector.py
 ```
 
-For Flatpak users, you may need to:
-1. Add permissions when launching EDMC: `--socket=wayland --filesystem=host-os`
-2. Use another path for wl-copy: `export EDMC_SPANSH_ROUTER_XCLIP="/run/host/usr/bin/wl-copy"`
+#### For Flatpak users
+
+You need to grant additional permissions and set an environment variable. You can do this either via command line or using Flatseal:
+
+**Option A - Using Flatseal (recommended for most users):**
+1. Install Flatseal from your software center if not already installed
+2. Open Flatseal and select "EDMarketConnector" from the list
+3. Under "Socket" enable "Wayland windowing system (`socket=wayland`)"
+4. Scroll down to "Filesystem" and enable "All system libraries, executables and static data (`filesystem=host-os`)"
+5. Scroll to "Environment" and add the following variable:
+   - `EDMC_SPANSH_ROUTER_XCLIP=/run/host/usr/bin/wl-copy`
+6. Restart EDMC
+
+**Option B - Using command line:**
+```bash
+flatpak override --user io.edcd.EDMarketConnector --socket=wayland --filesystem=host-os --env=EDMC_SPANSH_ROUTER_XCLIP=/run/host/usr/bin/wl-copy
+```
+Then restart EDMC normally through your application launcher.
 
 
 This allows the plugin to use `wl-copy` instead of `xclip` for clipboard operations.
@@ -61,7 +77,7 @@ Fly dangerous! o7
 
 ## Updates
 
-When a new update is available, you will be prompted with a popup listing the last changes, and asking whether you wish to update or not. If you say yes, the update will be installed the next time you launch EDMC.
+**Note:** Auto-updates are not maintained in this fork. To update, download the latest code from this repository and replace your plugin files manually.
 
 ## Known Issues
 
